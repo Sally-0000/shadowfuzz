@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [[ -d "${SCRIPT_DIR}/third_party" ]]; then
+  ROOT_DIR="${SCRIPT_DIR}"
+else
+  ROOT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+fi
+
+DRRUN="${ROOT_DIR}/third_party/DynamoRIO-Linux-11.3.0-1/bin64/drrun"
+CLIENT="${ROOT_DIR}/build/libshadowcov.so"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  afl-shadow-trace /path/to/target [target args...]
+
+Example with AFL++ no-forkserver mode:
+  AFL_NO_FORKSRV=1 AFL_SKIP_BIN_CHECK=1 \
+  afl-fuzz -i seeds -o afl-out -- ./afl-shadow-trace ./target @@
+
+Notes:
+  - AFL++ normally provides __AFL_SHM_ID; shadowcov also accepts AFL_SHM_ID.
+  - This is a minimal wrapper mode. It starts DynamoRIO once per testcase and is slow.
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" || $# -lt 1 ]]; then
+  usage
+  exit 0
+fi
+
+if [[ ! -x "${DRRUN}" ]]; then
+  echo "afl-shadow-trace: missing drrun at ${DRRUN}" >&2
+  exit 1
+fi
+
+if [[ ! -f "${CLIENT}" ]]; then
+  echo "afl-shadow-trace: missing client ${CLIENT}" >&2
+  echo "afl-shadow-trace: build it first with: cmake -S . -B build && cmake --build build" >&2
+  exit 1
+fi
+
+export SHADOWCOV_QUIET="${SHADOWCOV_QUIET:-1}"
+export SHADOWCOV_MAP_SIZE="${SHADOWCOV_MAP_SIZE:-65536}"
+
+if [[ -n "${__AFL_SHM_ID:-}" && -z "${AFL_SHM_ID:-}" ]]; then
+  export AFL_SHM_ID="${__AFL_SHM_ID}"
+fi
+
+exec "${DRRUN}" -c "${CLIENT}" -- "$@"
