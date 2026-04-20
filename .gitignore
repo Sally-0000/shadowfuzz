@@ -1,4 +1,10 @@
 third_party/
 DynamoRIO-*.tar
 DynamoRIO-*.tar.gz
-
+build/
+afl-out*/
+coverage.map
+a
+b
+findings*/
+*.map
