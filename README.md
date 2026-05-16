@@ -212,9 +212,6 @@ A
 - Semantic oracles are intentionally pattern and policy based. Tune allowlists
   per target to avoid expected crashes.
 
-## Development Notes
-
-The previous long-form development README was moved to [process.md](process.md).
 
 ## Release
 
