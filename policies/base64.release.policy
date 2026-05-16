@@ -1,0 +1,14 @@
+include=base.release.policy
+
+[oracles]
+credential_file=false
+exec=false
+env_access=false
+network=false
+path_traversal=false
+
+[coverage]
+ngram=1
+
+[target]
+module=base64

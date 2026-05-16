@@ -1,0 +1,9 @@
+[oracles]
+credential_file=true
+env_access=true
+exec=true
+
+[allowlists]
+env=AWS_SECRET_ACCESS_KEY
+exec=true
+path=.aws

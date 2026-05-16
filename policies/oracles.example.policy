@@ -1,0 +1,26 @@
+# Shadowfuzz target policy files use key=value lines.
+# Values are defaults; later CLI flags can override them.
+
+[oracles]
+dangerous_api=true
+credential_file=true
+exec=true
+env_access=true
+file_mutation=false
+network=true
+path_traversal=true
+
+[allowlists]
+exec=true,echo
+env=PATH,AWS_REGION
+network=127.0.0.1,203.0.113.
+path=./fixtures,/tmp/target-work
+
+[coverage]
+trace_cmp=false
+hitcount_buckets=false
+inline_coverage=false
+ngram=1
+
+[target]
+module=poc-a

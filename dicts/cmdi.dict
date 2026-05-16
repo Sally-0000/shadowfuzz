@@ -1,0 +1,7 @@
+semicolon=";"
+pipe="|"
+ampersand="&"
+dollar="$"
+backtick="`"
+redir_out=">"
+redir_in="<"

@@ -1,0 +1,4 @@
+fmt_n="%n"
+fmt_s="%s"
+fmt_sss="%s%s%s"
+percent="%"

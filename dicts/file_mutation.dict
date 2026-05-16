@@ -1,0 +1,4 @@
+delete="D"
+truncate="T"
+unlink="unlink"
+open_trunc="O_TRUNC"

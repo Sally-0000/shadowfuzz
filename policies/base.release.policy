@@ -1,0 +1,14 @@
+# Shared baseline for release examples.
+
+[oracles]
+dangerous_api=true
+credential_file=true
+exec=true
+env_access=true
+network=true
+path_traversal=true
+
+[coverage]
+trace_cmp=true
+hitcount_buckets=true
+ngram=2

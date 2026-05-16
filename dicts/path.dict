@@ -1,0 +1,5 @@
+dotdot="../"
+dotdot_back="..\\"
+absolute="/"
+etc_passwd="/etc/passwd"
+parent_passwd="../../etc/passwd"

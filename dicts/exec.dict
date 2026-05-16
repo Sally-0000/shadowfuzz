@@ -1,0 +1,5 @@
+bin_sh="/bin/sh"
+bin_id="/usr/bin/id"
+bin_true="/bin/true"
+parent_sh="../bin/sh"
+shell_meta=";"
